@@ -8,8 +8,7 @@ const getApiBaseUrl = () => {
   }
   
   // En production, utiliser l'URL directe de l'API
-  // ou une variable d'environnement si disponible
-  return import.meta.env.VITE_API_BASE_URL || 'https://bootcamps-xarala-back-production.up.railway.app/api/v1';
+  return 'https://bootcamps-xarala-back-production.up.railway.app/api/v1';
 };
 
 const API_BASE_URL = getApiBaseUrl();

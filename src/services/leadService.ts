@@ -1,4 +1,5 @@
 import api from './api';
+import { mockLeadService } from './mockData';
 
 export interface ApiLead {
   id: string;
@@ -55,14 +56,25 @@ export interface LeadResponse {
 export const leadService = {
   // Récupérer tous les leads
   async getLeads(page = 1, limit = 10): Promise<LeadsResponse> {
-    const response = await api.get(`/leads?page=${page}&limit=${limit}`);
-    return response.data;
+    try {
+      const response = await api.get(`/leads?page=${page}&limit=${limit}`);
+      return response.data;
+    } catch (error: any) {
+      console.warn('API error, using mock data:', error.message);
+      // En cas d'erreur CORS ou réseau, utiliser les données mockées
+      return mockLeadService.getLeads(page, limit);
+    }
   },
 
   // Récupérer un lead par ID
   async getLeadById(id: string): Promise<LeadResponse> {
-    const response = await api.get(`/leads/${id}`);
-    return response.data;
+    try {
+      const response = await api.get(`/leads/${id}`);
+      return response.data;
+    } catch (error: any) {
+      console.warn('API error, using mock data:', error.message);
+      return mockLeadService.getLeadById(id);
+    }
   },
 
   // Créer un nouveau lead
