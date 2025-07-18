@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-orange: #ff7f2a;
+  --primary-pink: #db4061;
+  --gradient-primary: linear-gradient(135deg, #ff7f2a 0%, #db4061 100%);
+  --text-dark: #1a1a1a;
+  --text-gray: #6b7280;
+  --bg-light: #f9fafb;
+  --white: #ffffff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--white);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-orange);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-pink);
+}
+
+/* Custom components */
+@layer components {
+  .btn-primary {
+    @apply text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 bg-primary-orange hover:bg-primary-pink;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors duration-200;
+  }
+  
+  .btn-outline {
+    @apply border-2 font-semibold py-3 px-6 rounded-lg transition-all duration-200 border-primary-orange text-primary-orange hover:bg-primary-orange hover:text-white;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-orange focus:border-transparent transition-all duration-200;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-primary bg-clip-text text-transparent;
+  }
+}
