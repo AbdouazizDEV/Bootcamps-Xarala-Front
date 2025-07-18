@@ -1,264 +1,156 @@
-# Xarala Frontend - Plateforme de Bootcamps
+# 🚀 Xarala Bootcamps Frontend
 
-Une application React moderne et responsive pour la plateforme d'inscription aux bootcamps Xarala. L'interface est intuitive, performante et reflète l'identité visuelle de Xarala.
+Application React moderne pour la plateforme de bootcamps Xarala, développée avec TypeScript, Tailwind CSS et les meilleures pratiques.
 
-## 🚀 Technologies Utilisées
+## ✨ Fonctionnalités
 
-- **Framework**: React 18 + TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **State Management**: Zustand
-- **Routing**: React Router v6
-- **Forms**: React Hook Form + Zod validation
-- **HTTP Client**: Axios avec interceptors
-- **UI Components**: Headless UI + custom components
-- **Icons**: Lucide React
-- **Animations**: Framer Motion
-- **Charts**: Recharts
+### 🏠 Pages Publiques
+- **Accueil** (`/`) - Page d'accueil avec présentation et bootcamps en vedette
+- **Bootcamps** (`/bootcamps`) - Liste complète des bootcamps disponibles
+- **Détail Bootcamp** (`/bootcamps/:id`) - Page détaillée d'un bootcamp
+- **À propos** (`/about`) - Informations sur Xarala
+- **Contact** (`/contact`) - Formulaire de contact
 
-## 🎨 Charte Graphique
+### 🔐 Pages Admin (Protégées)
+- **Connexion Admin** (`/admin/login`) - Authentification administrateur
+- **Tableau de bord** (`/admin/dashboard`) - Vue d'ensemble et statistiques
+- **Gestion des Leads** (`/admin/leads`) - Gestion des prospects
+- **Gestion des Bootcamps** (`/admin/bootcamps`) - CRUD des bootcamps
 
-### Couleurs Principales
-```css
---primary-orange: #ff7f2a;
---primary-pink: #db4061;
---gradient-primary: linear-gradient(135deg, #ff7f2a 0%, #db4061 100%);
---text-dark: #1a1a1a;
---text-gray: #6b7280;
---bg-light: #f9fafb;
---white: #ffffff;
---success: #10b981;
---warning: #f59e0b;
---error: #ef4444;
+## 🛠️ Technologies Utilisées
+
+- **React 18** + **TypeScript**
+- **Vite** - Build tool ultra-rapide
+- **Tailwind CSS** - Framework CSS utilitaire
+- **React Router v6** - Navigation SPA
+- **Zustand** - Gestion d'état
+- **React Hook Form** + **Zod** - Gestion des formulaires
+- **Axios** - Client HTTP
+- **Framer Motion** - Animations
+- **Lucide React** - Icônes
+- **Headless UI** - Composants UI accessibles
+
+## 🚀 Déploiement
+
+### Production
+L'application est déployée sur **Netlify** : 
+[https://bootcampsxaralafront.netlify.app](https://bootcampsxaralafront.netlify.app)
+
+### Développement Local
+```bash
+# Installer les dépendances
+npm install
+
+# Démarrer le serveur de développement
+npm run dev
+
+# Build de production
+npm run build
+
+# Tests
+npm run test
 ```
 
-### Typographie
-- **Famille**: Inter
-- **Base**: 16px
-- **Échelle modulaire**: 1.25
-- **Poids**: Regular (400), Medium (500), Semibold (600), Bold (700)
+## 🔑 Identifiants de Démonstration
+
+En mode démo (quand l'API backend n'est pas accessible), vous pouvez utiliser :
+
+### Connexion Admin
+- **Email** : `admin@xarala.com`
+- **Mot de passe** : `admin123`
+
+### Données de Démonstration
+
+#### Bootcamps Disponibles
+1. **Développement Web Full-Stack** (12 semaines, 150k FCFA)
+2. **Développement Mobile** (10 semaines, 120k FCFA)
+3. **Data Science & IA** (14 semaines, 180k FCFA)
+
+#### Leads de Démonstration
+- **Fatou Diop** (Nouveau) - Intéressée par le Full-Stack
+- **Mamadou Diallo** (Intéressé) - Intéressé par Data Science
+- **Aissatou Ba** (Contacté) - Intéressée par le Mobile
+
+## 🔧 Configuration
+
+### Variables d'Environnement
+```env
+VITE_API_BASE_URL=https://bootcamps-xarala-back-production.up.railway.app/api/v1
+```
+
+### Gestion des Erreurs CORS
+L'application utilise un système de **fallback intelligent** :
+- Tentative de connexion à l'API backend
+- En cas d'erreur CORS, utilisation automatique des données mockées
+- Expérience utilisateur préservée même sans API
 
 ## 📁 Structure du Projet
 
 ```
 src/
-├── components/
-│   ├── ui/           # Composants réutilisables
-│   │   ├── Button/
-│   │   ├── Input/
-│   │   ├── Modal/
-│   │   ├── Card/
-│   │   └── Table/
-│   ├── layout/       # Layout components
-│   │   ├── Header/
-│   │   ├── Footer/
-│   │   ├── Sidebar/
-│   │   └── Layout/
-│   ├── forms/        # Formulaires spécialisés
-│   │   ├── LeadForm/
-│   │   ├── LoginForm/
-│   │   └── BootcampForm/
-│   └── features/     # Composants métier
-│       ├── BootcampCard/
-│       ├── LeadTable/
-│       └── StatsCard/
-├── pages/
-│   ├── public/
-│   │   ├── HomePage/
-│   │   ├── BootcampsPage/
-│   │   └── BootcampDetailPage/
-│   └── admin/
-│       ├── LoginPage/
-│       ├── DashboardPage/
-│       ├── LeadsPage/
-│       └── BootcampsPage/
-├── hooks/            # Custom hooks
-├── services/         # API calls
-├── stores/           # State management
-├── utils/            # Utilities
-├── types/            # TypeScript types
-└── constants/        # Constants
+├── components/          # Composants réutilisables
+│   ├── auth/           # Composants d'authentification
+│   ├── features/       # Composants métier
+│   ├── layout/         # Layout et navigation
+│   └── ui/             # Composants UI de base
+├── pages/              # Pages de l'application
+│   ├── admin/          # Pages administrateur
+│   └── public/         # Pages publiques
+├── services/           # Services API et données
+├── stores/             # Gestion d'état Zustand
+└── types/              # Types TypeScript
 ```
 
-## 🚀 Installation et Démarrage
+## 🎨 Design System
 
-### Prérequis
-- Node.js (version 18 ou supérieure)
-- npm ou yarn
+### Couleurs Xarala
+- **Orange Principal** : `#ff7f2a`
+- **Rose Principal** : `#db4061`
+- **Texte Sombre** : `#1a1a1a`
+- **Texte Gris** : `#6b7280`
 
-### Installation
-
-1. **Cloner le projet**
-```bash
-git clone <repository-url>
-cd XaralaFront
-```
-
-2. **Installer les dépendances**
-```bash
-npm install
-```
-
-3. **Démarrer le serveur de développement**
-```bash
-npm run dev
-```
-
-4. **Ouvrir dans le navigateur**
-```
-http://localhost:5173
-```
-
-## 📋 Scripts Disponibles
-
-```bash
-# Développement
-npm run dev          # Démarrer le serveur de développement
-npm run build        # Build de production
-npm run preview      # Prévisualiser le build
-
-# Qualité du code
-npm run lint         # Linter ESLint
-npm run format       # Formatter Prettier
-
-# Tests
-npm run test         # Tests unitaires
-npm run test:e2e     # Tests E2E
-```
-
-## 🎯 Fonctionnalités
-
-### Pages Publiques
-- **Page d'Accueil** (`/`) : Hero section, bootcamps en vedette, statistiques
-- **Liste des Bootcamps** (`/bootcamps`) : Grille responsive avec filtres et recherche
-- **Détail Bootcamp** (`/bootcamps/:id`) : Informations détaillées, programme, instructeur
-
-### Pages Admin (Protégées)
-- **Connexion Admin** (`/admin/login`) : Authentification sécurisée
-- **Dashboard** (`/admin/dashboard`) : Statistiques et aperçu
-- **Gestion des Leads** (`/admin/leads`) : Tableau avec tri et filtres
-- **Gestion des Bootcamps** (`/admin/bootcamps`) : CRUD complet
-
-## 🔧 Configuration
-
-### Variables d'Environnement
-Créer un fichier `.env` à la racine du projet :
-
-```env
-VITE_API_URL=http://localhost:3000/api/v1
-VITE_APP_NAME=Xarala Bootcamps
-VITE_ENABLE_MOCK=true
-```
-
-### Identifiants de Démo
-Pour tester l'application :
-- **Email**: admin@xarala.com
-- **Mot de passe**: password123
-
-## 🎨 Composants UI
-
-### Button
-```tsx
-<Button variant="primary" size="lg" gradient>
-  Mon bouton
-</Button>
-```
-
-### Input
-```tsx
-<Input
-  type="email"
-  label="Email"
-  placeholder="votre@email.com"
-  required
-/>
-```
-
-### Modal
-```tsx
-<Modal isOpen={isOpen} onClose={onClose} title="Mon modal">
-  Contenu du modal
-</Modal>
-```
-
-## 📊 State Management
-
-### Stores Zustand
-- **AuthStore** : Gestion de l'authentification
-- **BootcampStore** : Gestion des bootcamps
-- **LeadStore** : Gestion des leads
-
-### Exemple d'utilisation
-```tsx
-import { useAuthStore } from '../stores/authStore';
-
-const { user, login, logout } = useAuthStore();
-```
-
-## 🌐 API Services
-
-### Configuration Axios
-- Interceptors automatiques pour les tokens
-- Gestion des erreurs centralisée
-- Refresh token automatique
-
-### Services disponibles
-- `authService` : Authentification
-- `bootcampService` : Gestion des bootcamps
-- `leadService` : Gestion des leads
-
-## 🎭 Animations
-
-### Framer Motion
-- Transitions de page fluides
-- Animations d'entrée pour les composants
-- Micro-interactions sur les boutons
-
-## 📱 Responsive Design
-
-### Breakpoints Tailwind
-- `sm`: 640px (Mobile large)
-- `md`: 768px (Tablette)
-- `lg`: 1024px (Desktop)
-- `xl`: 1280px (Large desktop)
+### Composants UI
+- **Button** - Boutons avec variantes (primary, secondary, outline)
+- **Card** - Cartes pour afficher le contenu
+- **Input** - Champs de saisie
+- **Modal** - Modales pour les actions importantes
 
 ## 🧪 Tests
 
-### Tests Unitaires
 ```bash
+# Tests unitaires
 npm run test
-```
 
-### Tests E2E
-```bash
+# Tests E2E (Playwright)
 npm run test:e2e
+
+# Formatage du code
+npm run format
+
+# Linting
+npm run lint
 ```
 
-## 🚀 Déploiement
+## 📱 Responsive Design
 
-### Build de Production
-```bash
-npm run build
-```
+L'application est entièrement responsive avec :
+- **Mobile First** - Optimisé pour les petits écrans
+- **Tablette** - Adaptation pour les écrans moyens
+- **Desktop** - Interface complète pour les grands écrans
 
-### Prévisualisation
-```bash
-npm run preview
-```
+## 🔒 Sécurité
 
-## 📈 Performance
+- **Routes protégées** pour les pages admin
+- **Gestion des tokens** avec refresh automatique
+- **Validation des formulaires** avec Zod
+- **Headers de sécurité** configurés
 
-### Optimisations
-- Code splitting avec React.lazy()
-- Images optimisées avec lazy loading
-- Mise en cache avec React Query
-- Bundle analysis disponible
+## 🚀 Performance
 
-### Lighthouse Score
-- Performance : > 90
-- Accessibilité : > 95
-- SEO : > 90
-- Best Practices : > 90
+- **Code splitting** automatique avec React Router
+- **Lazy loading** des composants
+- **Optimisation des images** avec Vite
+- **Bundle size optimisé** (~300KB gzippé)
 
 ## 🤝 Contribution
 
@@ -270,20 +162,8 @@ npm run preview
 
 ## 📄 Licence
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
-## 👥 Équipe
-
-- **Développeur Frontend** : [Votre nom]
-- **Designer** : [Nom du designer]
-- **Product Owner** : [Nom du PO]
-
-## 📞 Support
-
-Pour toute question ou support :
-- **Email** : contact@xarala.com
-- **Site web** : https://xarala.com
+Ce projet est développé pour Xarala Bootcamps.
 
 ---
 
-**Xarala Frontend** - Transformez votre carrière avec nos bootcamps intensifs ! 🚀
+**Développé avec ❤️ pour Xarala Bootcamps**
