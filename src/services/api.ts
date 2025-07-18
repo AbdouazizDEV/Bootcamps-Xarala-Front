@@ -46,50 +46,20 @@ api.interceptors.request.use(
   }
 );
 
-// Intercepteur pour gérer les erreurs de réponse
+// Intercepteur de réponse pour gérer les erreurs
 api.interceptors.response.use(
   (response) => {
-    // Debug: log des réponses en développement
-    if (import.meta.env.DEV) {
-      console.log('API Response:', response.status, response.config.url);
-    }
+    console.log('API Response Success:', response.config.url);
     return response;
   },
-  async (error) => {
-    console.error('API Response Error:', error.response?.status, error.response?.data);
+  (error) => {
+    console.error('API Response Error:', error.message, error.response?.status);
     
-    const originalRequest = error.config;
-
-    // Si l'erreur est 401 et qu'on n'a pas déjà tenté de refresh
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
-      try {
-        const refreshToken = localStorage.getItem('refreshToken');
-        if (refreshToken) {
-          const refreshUrl = getApiBaseUrl() + '/auth/refresh';
-          
-          const response = await axios.post(refreshUrl, {
-            refreshToken,
-          });
-
-          const { accessToken } = response.data;
-          localStorage.setItem('adminToken', accessToken);
-
-          // Retry la requête originale avec le nouveau token
-          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-          return api(originalRequest);
-        }
-      } catch (refreshError) {
-        console.error('Token refresh failed:', refreshError);
-        // Si le refresh échoue, déconnecter l'utilisateur
-        localStorage.removeItem('adminToken');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('adminUser');
-        window.location.href = '/admin/login';
-      }
+    // Gestion spécifique des erreurs CORS
+    if (error.message === 'Network Error' || error.code === 'ERR_NETWORK') {
+      console.warn('🚫 Erreur CORS détectée - Utilisation des données mockées');
     }
-
+    
     return Promise.reject(error);
   }
 );

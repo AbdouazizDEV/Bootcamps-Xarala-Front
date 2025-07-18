@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Eye, EyeOff, Lock, Mail, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/ui/Button';
+import DemoBanner from '../../../components/ui/DemoBanner';
 import { useAuthStore } from '../../../stores/authStore';
 
 const LoginPage = () => {
@@ -10,8 +11,8 @@ const LoginPage = () => {
   const { login, loading, error, isAuthenticated } = useAuthStore();
   
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: 'admin@xarala.sn',
+    password: 'admin123',
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -22,7 +23,7 @@ const LoginPage = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -30,7 +31,7 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     try {
@@ -67,6 +68,9 @@ const LoginPage = () => {
 
         {/* Formulaire de connexion */}
         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl">
+          {/* Bannière mode démo */}
+          <DemoBanner className="mb-6" />
+          
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Message d'erreur */}
             {error && (
