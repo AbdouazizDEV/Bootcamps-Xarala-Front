@@ -5,7 +5,7 @@ const mockAuthData = {
   admin: {
     id: "1",
     name: "Admin Xarala",
-    email: "admin@xarala.com",
+    email: "admin@xarala.sn",
     role: "admin",
   },
   access_token: "mock-access-token-12345",
@@ -35,7 +35,7 @@ export const authService = {
       console.warn('Auth API error, using mock login:', error.message);
       
       // En cas d'erreur CORS, simuler une connexion réussie avec des données mockées
-      if (credentials.email === 'admin@xarala.com' && credentials.password === 'admin123') {
+      if (credentials.email === 'admin@xarala.sn' && credentials.password === 'admin123') {
         // Stocker les données mockées
         localStorage.setItem('adminToken', mockAuthData.access_token);
         localStorage.setItem('adminUser', JSON.stringify(mockAuthData.admin));

@@ -56,7 +56,7 @@ npm run test
 En mode démo (quand l'API backend n'est pas accessible), vous pouvez utiliser :
 
 ### Connexion Admin
-- **Email** : `admin@xarala.com`
+- **Email** : `admin@xarala.sn`
 - **Mot de passe** : `admin123`
 
 ### Données de Démonstration
